@@ -1,6 +1,7 @@
 from base64 import b64encode, b64decode
 from Crypto.Cipher import AES
 from Crypto.Util.Padding import pad, unpad
+from Crypto.Random import get_random_bytes
 from hashlib import sha256
 
 
@@ -30,11 +31,13 @@ class AES_cbc:
 if __name__ == "__main__":
     r = "1234"
     key = sha256(r.encode()).digest()
+    print("r: {0}, key: {1}".format(r, key.hex()))
+
     aes = AES_cbc(key)
     msg = "Good"
 
     enc = aes.encrypt(msg.encode())
-    print(enc)
+    print("encrypt: {0}".format(enc))
 
     dec = aes.decrypt(enc.encode())
-    print(dec.decode())
+    print("decrypt: {0}".format(dec.decode()))
